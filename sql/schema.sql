@@ -1,33 +1,43 @@
-CREATE TABLE CustomerDim (
-    CustomerID INTEGER PRIMARY KEY,
-    Name TEXT,
-    Location TEXT,
-    Gender TEXT,
-    Age INTEGER
+-- Star schema for Retail DW (SQLite)
+
+-- Dimension tables
+CREATE TABLE IF NOT EXISTS CustomerDim (
+  CustomerKey INTEGER PRIMARY KEY,
+  CustomerID INTEGER,
+  Country TEXT,
+  total_purchases REAL,
+  total_transactions INTEGER
 );
 
-CREATE TABLE ProductDim (
-    ProductID INTEGER PRIMARY KEY,
-    ProductName TEXT,
-    Category TEXT,
-    Price REAL
+CREATE TABLE IF NOT EXISTS ProductDim (
+  ProductKey INTEGER PRIMARY KEY,
+  StockCode TEXT,
+  Description TEXT,
+  Category TEXT,
+  UnitPrice REAL
 );
 
-CREATE TABLE TimeDim (
-    TimeID INTEGER PRIMARY KEY,
-    Date TEXT,
-    Quarter TEXT,
-    Year INTEGER
+CREATE TABLE IF NOT EXISTS TimeDim (
+  TimeKey INTEGER PRIMARY KEY,
+  Date TEXT,        -- ISO 'YYYY-MM-DD'
+  Day INTEGER,
+  Month INTEGER,
+  MonthName TEXT,
+  Quarter INTEGER,
+  Year INTEGER
 );
 
-CREATE TABLE SalesFact (
-    SalesID INTEGER PRIMARY KEY AUTOINCREMENT,
-    CustomerID INTEGER,
-    ProductID INTEGER,
-    TimeID INTEGER,
-    Quantity INTEGER,
-    SalesAmount REAL,
-    FOREIGN KEY (CustomerID) REFERENCES CustomerDim(CustomerID),
-    FOREIGN KEY (ProductID) REFERENCES ProductDim(ProductID),
-    FOREIGN KEY (TimeID) REFERENCES TimeDim(TimeID)
+-- Fact table
+CREATE TABLE IF NOT EXISTS SalesFact (
+  SalesFactID INTEGER PRIMARY KEY,
+  InvoiceNo TEXT,
+  CustomerKey INTEGER,
+  ProductKey INTEGER,
+  TimeKey INTEGER,
+  Quantity INTEGER,
+  UnitPrice REAL,
+  TotalSales REAL,
+  FOREIGN KEY (CustomerKey) REFERENCES CustomerDim(CustomerKey),
+  FOREIGN KEY (ProductKey) REFERENCES ProductDim(ProductKey),
+  FOREIGN KEY (TimeKey) REFERENCES TimeDim(TimeKey)
 );
