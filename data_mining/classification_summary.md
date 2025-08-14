@@ -1,0 +1,1 @@
+Best model: KNN(k=5) (F1=0.967, Acc=0.967, Prec=0.970, Rec=0.967). Decision Tree is interpretable (see decision_tree.png) and highlights key thresholds; KNN captures local structure but depends on k and scaled distances. Metrics may vary slightly with different random splits.

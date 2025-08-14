@@ -1,0 +1,1 @@
+Example rule: {'coffee'} → {'salsa'} (support=0.20, confidence=0.50, lift=2.00). High lift suggests strong co-purchase beyond chance. Retailers can use this to drive cross-sell promotions and aisle adjacencies (e.g., bundle or co-locate items).
