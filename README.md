@@ -1,9 +1,31 @@
 ```mermaid
-graph TD
-A[Start] --> B[Do thing]
-B --> C{Decision?}
-C -->|Yes| D[Path 1]
-C -->|No|  E[Path 2]
+erDiagram
+  CustomerDim ||--o{ SalesFact : has
+  ProductDim  ||--o{ SalesFact : has
+  TimeDim     ||--o{ SalesFact : has
 
-# DSA-2040_Practical_Exam_Kyra_619
-designed to test your practical skills in data warehousing and data mining. 
+  CustomerDim { int CustomerKey PK
+                int CustomerID
+                string Country
+                float total_purchases
+                int total_transactions }
+  ProductDim  { int ProductKey PK
+                string StockCode
+                string Description
+                string Category
+                float UnitPrice }
+  TimeDim     { int TimeKey PK
+                date Date
+                int Day
+                int Month
+                string MonthName
+                int Quarter
+                int Year }
+  SalesFact   { int SalesFactID PK
+                string InvoiceNo
+                int CustomerKey FK
+                int ProductKey FK
+                int TimeKey FK
+                int Quantity
+                float UnitPrice
+                float TotalSales }
