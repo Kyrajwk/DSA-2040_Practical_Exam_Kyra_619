@@ -2,8 +2,8 @@
 
 This repository contains solutions for:
 
-- **Section 1: Data Warehousing** — star-schema design, ETL into SQLite, and OLAP queries.
-- **Section 2: Data Mining** — preprocessing/EDA, clustering (K-Means), classification (DT vs KNN), and association rules (Apriori).
+* **Section 1: Data Warehousing** — star-schema design, ETL into SQLite, and OLAP queries.
+* **Section 2: Data Mining** — preprocessing/EDA, clustering (K-Means), classification (DT vs KNN), and association rules (Apriori).
 
 Everything runs locally with Python and Jupyter.
 
@@ -20,7 +20,7 @@ data_warehouse/
 │  └─ olap_analysis.ipynb          # runs queries + saves chart/CSVs
 ├─ sql/
 │  └─ schema.sql                   # DDL for star schema (SQLite)
-└─ schema.png                      # star schema diagram image (add this)
+└─ schema.png                      # star schema diagram image
 
 data_mining/
 ├─ preprocessing_iris.ipynb        # Task 1: EDA + Min–Max scaling + splits
@@ -49,6 +49,8 @@ SQLite (`sqlite3`) is included with Python.
 ## Section 1 — Data Warehousing
 
 ### Star Schema
+
+![Schema Diagram](data_warehouse/schema.png)
 
 If you don’t have `schema.png` yet, keep the Mermaid diagram below in this README (GitHub renders it), and optionally export a PNG later.
 
@@ -103,8 +105,8 @@ Open `data_warehouse/etl/etl_retail.ipynb` and **Run All**.
 
 **Outputs in the same folder:**
 
-- `online_retail.csv`
-- `retail_dw.db` (SQLite DW with `CustomerDim`, `ProductDim`, `TimeDim`, `SalesFact`)
+* `online_retail.csv`
+* `retail_dw.db` (SQLite DW with `CustomerDim`, `ProductDim`, `TimeDim`, `SalesFact`)
 
 The notebook prints row counts and validates `TotalSales = Quantity × UnitPrice`.
 
@@ -112,16 +114,19 @@ The notebook prints row counts and validates `TotalSales = Quantity × UnitPrice
 
 ### OLAP (Task 3)
 
-- **SQL:** `data_warehouse/olap/queries.sql`
-  - **Roll-up:** totals by Country × Quarter
-  - **Drill-down:** monthly totals for United Kingdom
-  - **Slice:** total for Electronics category
-- **Notebook:** `data_warehouse/olap/olap_analysis.ipynb`
-  - Runs the queries and saves:
-    - `sales_by_country.png`
-    - `rollup_country_quarter.csv`
-    - `drilldown_uk_monthly.csv`
-    - `slice_electronics.csv`
+* **SQL:** `data_warehouse/olap/queries.sql`
+
+  * **Roll-up:** totals by Country × Quarter
+  * **Drill-down:** monthly totals for United Kingdom
+  * **Slice:** total for Electronics category
+* **Notebook:** `data_warehouse/olap/olap_analysis.ipynb`
+
+  * Runs the queries and saves:
+
+    * `sales_by_country.png`
+    * `rollup_country_quarter.csv`
+    * `drilldown_uk_monthly.csv`
+    * `slice_electronics.csv`
 
 #### OLAP Analysis (200–300 words)
 
@@ -137,24 +142,33 @@ The warehouse’s star design (Customer, Product, Time, plus SalesFact) lets us 
 
 **Notebook:** `data_mining/preprocessing_iris.ipynb`
 
-- Loads Iris (Fisher, 1936) via scikit-learn (`load_iris`), checks missing values, applies Min–Max scaling.
-- **Saves:** `iris_X_scaled.csv`, `iris_y.csv`, `iris_train.csv`, `iris_test.csv`
-- **Visuals:**  &#x20;
+* Loads Iris (Fisher, 1936) via scikit-learn (`load_iris`), checks missing values, applies Min–Max scaling.
+* **Saves:** `iris_X_scaled.csv`, `iris_y.csv`, `iris_train.csv`, `iris_test.csv`
+* **Visuals:**
+
+  * ![Boxplots](data_mining/iris_boxplots.png)
+  * ![Correlation Heatmap](data_mining/iris_corr_heatmap.png)
+  * ![Pairplot](data_mining/iris_pairplot.png)
 
 ### Task 2 — Clustering (K-Means)
 
 **Notebook:** `data_mining/clustering_iris.ipynb`
 
-- `K ∈ {2, 3, 4}`; computes Adjusted Rand Index (ARI) vs. labels, and an Elbow curve.
-- Visualizes `k=3` clusters (petal length vs petal width).
-- **Saves:** &#x20;
+* `K ∈ {2, 3, 4}`; computes Adjusted Rand Index (ARI) vs. labels, and an Elbow curve.
+* Visualizes `k=3` clusters (petal length vs petal width).
+* **Visuals:**
+
+  * ![KMeans Elbow](data_mining/kmeans_elbow.png)
+  * ![KMeans Clusters K=3](data_mining/kmeans_clusters_k3.png)
 
 ### Task 3 — Classification & Association Rules
 
 **Notebook:** `data_mining/mining_iris_basket.ipynb`
 
-- **Classification:** Decision Tree (`max_depth=4`) vs KNN (`k=5`) on scaled Iris&#x20;
-- **Association Rules (Apriori):** synthetic baskets (20–50 tx, 3–8 items/tx), support ≥ 0.2, confidence ≥ 0.5
+* **Classification:** Decision Tree (`max_depth=4`) vs KNN (`k=5`) on scaled Iris
+
+  * ![Decision Tree](data_mining/decision_tree.png)
+* **Association Rules (Apriori):** synthetic baskets (20–50 tx, 3–8 items/tx), support ≥ 0.2, confidence ≥ 0.5
 
 ---
 
@@ -175,9 +189,10 @@ The warehouse’s star design (Customer, Product, Time, plus SalesFact) lets us 
 
 ## Notes
 
-- The Iris dataset is bundled with scikit-learn (`sklearn.datasets.load_iris`).
-- The ETL notebook creates a small retail CSV and an SQLite warehouse for OLAP.
-- If `schema.png` is missing, you can:
+* The Iris dataset is bundled with scikit-learn (`sklearn.datasets.load_iris`).
+* The ETL notebook creates a small retail CSV and an SQLite warehouse for OLAP.
+* If `schema.png` is missing, you can:
+
   1. Screenshot the Mermaid diagram above and save it as `data_warehouse/schema.png`, **or**
   2. Export via Mermaid CLI:
 
@@ -192,10 +207,9 @@ npx @mermaid-js/mermaid-cli \
 
 ## Submission Checklist
 
-- `data_warehouse/sql/schema.sql`
-- `data_warehouse/etl/etl_retail.ipynb` → `online_retail.csv`, `retail_dw.db`
-- `data_warehouse/olap/queries.sql`, `olap_analysis.ipynb`, chart + CSVs
-- `data_warehouse/schema.png` (or keep Mermaid block)
-- `data_mining/` notebooks + generated plots/CSVs/MD
-- README includes schema, rationale, OLAP analysis, run steps, and example outputs
-
+* `data_warehouse/sql/schema.sql`
+* `data_warehouse/etl/etl_retail.ipynb` → `online_retail.csv`, `retail_dw.db`
+* `data_warehouse/olap/queries.sql`, `olap_analysis.ipynb`, chart + CSVs
+* `data_warehouse/schema.png` (or keep Mermaid block)
+* `data_mining/` notebooks + generated plots/CSVs/MD
+* README includes schema, rationale, OLAP analysis, run steps, and example outputs
