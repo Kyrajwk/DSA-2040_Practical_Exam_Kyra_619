@@ -50,9 +50,6 @@ SQLite (`sqlite3`) is included with Python.
 
 ### Star Schema
 
-![Schema Diagram](data_warehouse/schema.png)
-
-If you don’t have `schema.png` yet, keep the Mermaid diagram below in this README (GitHub renders it), and optionally export a PNG later.
 
 ```mermaid
 erDiagram
